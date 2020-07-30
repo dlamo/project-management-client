@@ -1,24 +1,26 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Switch, Route } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import ProjectList from './components/Projects/ProjectList';
+import ProjectDetails from './components/Projects/ProjectDetails';
+import TaskDetails from './components/Tasks/TaskDetails';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Navbar />
+      <Switch>
+        <Route exact path='/'>
+          <h1>Esta es la homepage</h1>
+        </Route>
+        <Route exact path='/projects'>
+          <ProjectList />
+        </Route>
+        <Route path='/projects/:id' render={(props) => <ProjectDetails {...props} />} />
+        <Route exact path="/projects/:id/tasks/:taskId" component={TaskDetails} /> {/* <== !!! */} 
+      </Switch>
     </div>
   );
 }
